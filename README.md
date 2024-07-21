@@ -1,85 +1,90 @@
 # SageNP: Newman-Penrose calculations for SageMath. The code is based on SageManifolds.
 
 Code by:                                        
-Tolga Birkandan (Corr.: birkandant@itu.edu.tr) 
+Tolga Birkandan (Corr.: birkandant@itu.edu.tr)
+
 Emir Baysazan                                  
+
 Pelin Ozturk                                   
+
 Special thanks to Eric Gourgoulhon             
+
 Based on SageMath (SageManifolds)              
 
 The class "SageNP" includes functions for some calculations defined in the Newman-Penrose formalism.
 
 REFERENCE:
+
 The reference for all definitions and calculations:
 
 H. Stephani, D. Kramer, M. MacCallum, C. Hoenselaers, and E. Herlt, "Exact Solutions of Einstein’s Field Equations", 2nd ed. Cambridge: Cambridge University Press, 2003.
 
 
 BASIC DEFINITIONS AND NOTATION:
+
 * We will use the Metric signature: (- + + +)                      
 
 * For the null-tetrad vector names,
-- The ref. book uses 
-    (k,l,m,mbar)
 
-- However, in the code we will use
-    (l,n,m,mbar)
-  like the rest of literature.
+- The ref. book uses (k,l,m,mbar)
 
-- Therefore on should set 
-    k->l, l->n in the ref. book
+- However, in the code we will use (l,n,m,mbar) like the rest of the literature.
 
-- Products of the vectors are given by:
-    l*n = -1, m*mbar = 1, all others zero.  
+- Therefore one should set k->l, l->n in the ref. book
+
+- Products of the vectors are given by: l*n = -1, m*mbar = 1, all others zero.  
   
-- The metric is found using the covariant null-tetrad
-  vectors as:
-    g = -2*l*n + 2*m*mbar                            
+- The metric is found using the covariant null-tetrad vectors as:
+    g = -2*l*n + 2*m*mbar
+                            
   and,
-    g = [0  1  0  0]                                 
+
+    g = [0  1  0  0]                               
         [1  0  0  0]                                 
-        [0  0  0 -1]                                 
+        [0  0  0 -1]
         [0  0 -1  0]
 
-- Please check the reference book for the details 
-  and further definitions.
+- Please check the reference book for the details and further definitions.
 ###########
 
 INSTRUCTIONS WITH EXAMPLES:
 
 - Import the class:
+  
     from SageNP import *
     
 - Define your manifold:
+  
     MyManifold = Manifold(4 , 'MyManifold', r'\mathcal{Man}')
 
 - Define your coordinates:
+  
     MyCoordinates.<t,r,th,ph> = MyManifold.chart(r't r th:\theta ph:\phi')
 
 - Define the metric functions (if needed):
+
     var('M')
     Delta=function('Delta',imag_part_func=0)(r)
     Delta=r^2-2*M*r
     
 - Enter null tetrad elements:
+
     lvec=[1,-(r^2)/Delta,0,0]
     nvec=[Delta/(2*r^2),1/2,0,0]
     mvec=[0,0,(-r/sqrt(2)),(-I*r/sqrt(2))*sin(th)]
     mbarvec=[0,0,(-r/sqrt(2)),(I*r/sqrt(2))*sin(th)]
 
-    *Here, the element ordering is the same as the coordinate ordering.
-     (The first element is the t element, the second is the r element, etc.)
+    *Here, the element ordering is the same as the coordinate ordering. (The first element is the t element, the second is the r element, etc.)
 
 - Define an object of the class:
+  
     schw=SageNP(MyManifold,MyCoordinates,lvec,nvec,mvec,mbarvec,'covariant')
   
-  *Here, our null-tetrad vectors lvec, nvec, mvec and mbarvec 
-   are covariant. Thus we used the keyword 'covariant'.
-   If they were contravariant, 
-   then we should use the keyword 'contravariant'.
+  *Here, our null-tetrad vectors lvec, nvec, mvec and mbarvec are covariant. Thus we used the keyword 'covariant'.
+  
+  *If they were contravariant, then we should use the keyword 'contravariant'.
 
-- Once the object is defined, the code calculates the metric 
-  and displays it on the screen. It is recommended that you check your metric.
+- Once the object is defined, the code calculates the metric and displays it on the screen. It is recommended that you check your metric.
 
 ###########
 
@@ -98,6 +103,7 @@ FUNCTIONS:
     - show_spincoefficients(): Displays the spin coefficients
     
     - All spin coefficients are available under their names:
+      
       kappaNP, kappabarNP, tauNP, taubarNP, sigmaNP, sigmabarNP,
       rhoNP, rhobarNP, piNP, pibarNP, nuNP, nubarNP, muNP, mubarNP,
       lambdaNP, lambdabarNP, epsilonNP, epsilonbarNP, gammaNP, gammabarNP,
@@ -133,6 +139,7 @@ FUNCTIONS:
     - show_Weyl(): Displays the Weyl tensor components.
     
     - All Weyl tensor components are available under their names:
+      
       Psi0NP, Psi1NP, Psi2NP, Psi3NP, Psi4NP
 
 
@@ -143,6 +150,7 @@ FUNCTIONS:
     - show_Ricci(): Displays the Ricci tensor components.
     
     - All Ricci tensor components are available under their names:
+      
       Phi00NP, Phi01NP, Phi10NP, Phi02NP, Phi20NP, 
       Phi11NP, Phi12NP, Phi21NP, Phi22NP, LambdaNP
 
@@ -158,6 +166,7 @@ FUNCTIONS:
     
     - All Newman-Penrose equations are available under their names
       in the order they are given in the reference:
+  
       NPeq1, NPeq2, NPeq3, NPeq4, NPeq5, NPeq6, NPeq7, NPeq8, NPeq9, NPeq10, 
       NPeq11, NPeq12, NPeq13, NPeq14, NPeq15, NPeq16, NPeq17, NPeq18,
 
@@ -173,6 +182,7 @@ FUNCTIONS:
     
     - All Bianchi identities are available under their names
       in the order they are given in the reference:
+      
       BI1, BI2, BI3, BI4, BI5, BI6, BI7, BI8, BI9, BI10, BI11
 
 
@@ -190,28 +200,44 @@ FUNCTIONS:
     - calculate_PetrovinvNNP(): Calculates the Petrov invariant N
 
     - All Petrov invariants are available under their names:
+      
       PetrovinvINP, PetrovinvJNP, PetrovinvKNP, PetrovinvLNP, PetrovinvNNP
 
 
 - Petrov type of the spacetime:
     - Petrov_frominvariants(): Calculates the Petrov type using I, J, K, L, N.
+      
     - Petrov_fromWeyl(): Calculates the Petrov type using the Weyl components
 
 
 - calculate_allNP(): Runs the following functions:
+  
     - calculate_spincoefficients()
+
     - calculate_Weyl()
+
     - calculate_Ricci()
+
     - calculate_NPeq()
+
     - calculate_Bianchi()
+
     - Petrov_frominvariants()
+
     - Petrov_fromWeyl()
 
 - show_allNP(): Runs the following functions:
+
     - show_spincoefficients()
+
     - show_Weyl()
+
     - show_Ricci()
+
     - show_NPeq()
+
     - show_Bianchi()
+
     - Petrov_frominvariants()
+
     - Petrov_fromWeyl()
