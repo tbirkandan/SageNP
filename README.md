@@ -1,6 +1,9 @@
 # SageNP: Newman-Penrose calculations for SageMath. The code is based on SageManifolds.
 
+The class "SageNP" includes functions for some calculations defined in the Newman-Penrose formalism.
+
 Code by:                                        
+
 Tolga Birkandan (Corr.: birkandant@itu.edu.tr)
 
 Emir Baysazan                                  
@@ -9,9 +12,6 @@ Pelin Ozturk
 
 Special thanks to Eric Gourgoulhon             
 
-Based on SageMath (SageManifolds)              
-
-The class "SageNP" includes functions for some calculations defined in the Newman-Penrose formalism.
 
 REFERENCE:
 
@@ -39,12 +39,10 @@ BASIC DEFINITIONS AND NOTATION:
                             
   and,
 
-    g = [0  1  0  0]                               
-        [1  0  0  0]                                 
-        [0  0  0 -1]
-        [0  0 -1  0]
+    g = [[0  1  0  0], [1  0  0  0], [0  0  0 -1], [0  0 -1  0]]
 
 - Please check the reference book for the details and further definitions.
+- 
 ###########
 
 INSTRUCTIONS WITH EXAMPLES:
@@ -70,8 +68,11 @@ INSTRUCTIONS WITH EXAMPLES:
 - Enter null tetrad elements:
 
     lvec=[1,-(r^2)/Delta,0,0]
+  
     nvec=[Delta/(2*r^2),1/2,0,0]
+
     mvec=[0,0,(-r/sqrt(2)),(-I*r/sqrt(2))*sin(th)]
+
     mbarvec=[0,0,(-r/sqrt(2)),(I*r/sqrt(2))*sin(th)]
 
     *Here, the element ordering is the same as the coordinate ordering. (The first element is the t element, the second is the r element, etc.)
