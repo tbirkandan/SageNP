@@ -1,8 +1,16 @@
 # SageNP: Newman-Penrose calculations for SageMath. The code is based on SageManifolds.
 
-The class "SageNP" includes functions for some calculations defined in the Newman-Penrose formalism.
+The class **SageNP** includes functions for some calculations defined in the Newman-Penrose formalism.
 
-Code by:                                        
+# FILES:
+
+**NPExample1_Schw_cov.ipynb**: Example worksheet for the Schwarzschild metric with covariant null-tetrad vectors.
+	
+**NPExample2_RN_cont.ipynb**: Example worksheet for the Reissner-Nordstrom metric with contravariant null-tetrad vectors.
+	
+**SageNP.py**: Main file to import in SageMath.
+
+# Code by:                                        
 
 - Tolga Birkandan (Corr.: birkandant@itu.edu.tr)
 
@@ -10,17 +18,17 @@ Code by:
 
 - Pelin Ozturk                                   
 
-* Special thanks to Eric Gourgoulhon             
+- **Special thanks to Eric Gourgoulhon**
 
 
-REFERENCE:
+# REFERENCE:
 
 The reference for all definitions and calculations:
 
 H. Stephani, D. Kramer, M. MacCallum, C. Hoenselaers, and E. Herlt, "Exact Solutions of Einstein’s Field Equations", 2nd ed. Cambridge: Cambridge University Press, 2003.
 
 
-BASIC DEFINITIONS AND NOTATION:
+# BASIC DEFINITIONS AND NOTATION:
 
 * We will use the Metric signature: (- + + +)                      
 
@@ -42,10 +50,8 @@ BASIC DEFINITIONS AND NOTATION:
     g = [[0  1  0  0], [1  0  0  0], [0  0  0 -1], [0  0 -1  0]]
 
 - Please check the reference book for the details and further definitions.
-  
-###########
 
-INSTRUCTIONS WITH EXAMPLES:
+# INSTRUCTIONS WITH EXAMPLES:
 
 - Import the class:
   
@@ -87,9 +93,7 @@ INSTRUCTIONS WITH EXAMPLES:
 
 - Once the object is defined, the code calculates the metric and displays it on the screen. It is recommended that you check your metric.
 
-###########
-
-FUNCTIONS:
+# FUNCTIONS:
 
 - All page and equation numbers belong to the reference book.
 
