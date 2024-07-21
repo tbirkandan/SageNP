@@ -42,7 +42,7 @@ BASIC DEFINITIONS AND NOTATION:
     g = [[0  1  0  0], [1  0  0  0], [0  0  0 -1], [0  0 -1  0]]
 
 - Please check the reference book for the details and further definitions.
-- 
+  
 ###########
 
 INSTRUCTIONS WITH EXAMPLES:
