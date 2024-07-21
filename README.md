@@ -101,7 +101,7 @@ H. Stephani, D. Kramer, M. MacCallum, C. Hoenselaers, and E. Herlt, "Exact Solut
 - test_nulltetrad(): Checks the products of the vectors l*n = -1, m*mbar = 1, all others zero.
 
 
-- Spin coefficients (Page 75-76, Eq.(7.2))
+- Spin coefficients (Page 75-76, Eq.(7.2)):
     
     - calculate_spincoefficients(): Calculates the spin coefficients.
     
@@ -115,7 +115,7 @@ H. Stephani, D. Kramer, M. MacCallum, C. Hoenselaers, and E. Herlt, "Exact Solut
       betaNP, betabarNP, alphaNP, alphabarNP
 
       
-- Directional Derivatives (Page 43, Eq.(3.82))
+- Directional derivatives (Page 43, Eq.(3.82)):
 
     - DlNP(X): Given X, calculates the D derivative (l direction).
 
@@ -160,7 +160,7 @@ H. Stephani, D. Kramer, M. MacCallum, C. Hoenselaers, and E. Herlt, "Exact Solut
       Phi11NP, Phi12NP, Phi21NP, Phi22NP, LambdaNP
 
 
-- Ricci (Newman-Penrose) Equations (Page 79, Eq.(7.21)):
+- Ricci (Newman-Penrose) equations (Page 79, Eq.(7.21)):
     
     - All Newman-Penrose equations are defined as 
       0 = -(left hand side)+(right hand side) of the equations
