@@ -4,13 +4,13 @@ The class "SageNP" includes functions for some calculations defined in the Newma
 
 Code by:                                        
 
-Tolga Birkandan (Corr.: birkandant@itu.edu.tr)
+- Tolga Birkandan (Corr.: birkandant@itu.edu.tr)
 
-Emir Baysazan                                  
+- Emir Baysazan                                  
 
-Pelin Ozturk                                   
+- Pelin Ozturk                                   
 
-Special thanks to Eric Gourgoulhon             
+* Special thanks to Eric Gourgoulhon             
 
 
 REFERENCE:
