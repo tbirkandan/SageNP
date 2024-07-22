@@ -4,11 +4,11 @@ The class **SageNP** includes functions for some calculations defined in the New
 
 # FILES:
 
+**SageNP.py**: Main file to import in SageMath.
+
 **SageNPExample_Schwarzschild.ipynb**: Example worksheet for the Schwarzschild metric with covariant null-tetrad vectors.
 	
 **SageNPExample_ReissnerNordstrom.ipynb**: Example worksheet for the Reissner-Nordstrom metric with contravariant null-tetrad vectors.
-	
-**SageNP.py**: Main file to import in SageMath.
 
 # Code by:                                        
 
