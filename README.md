@@ -2,14 +2,6 @@
 
 The class **SageNP** includes functions for some calculations defined in the Newman-Penrose formalism. The code is based on SageManifolds.
 
-# FILES:
-
-- **SageNP.py**: Main file to import in SageMath.
-
-- **SageNPExample_Schwarzschild.ipynb**: Example worksheet for the Schwarzschild metric with covariant null-tetrad vectors.
-	
-- **SageNPExample_ReissnerNordstrom.ipynb**: Example worksheet for the Reissner-Nordstrom metric with contravariant null-tetrad vectors.
-
 # Code by:                                        
 
 - Tolga Birkandan (Corr.: birkandant@itu.edu.tr)
@@ -20,6 +12,13 @@ The class **SageNP** includes functions for some calculations defined in the New
 
 - **Special thanks to Eric Gourgoulhon**
 
+# FILES:
+
+- **SageNP.py**: Main file to import in SageMath.
+
+- **SageNPExample_Schwarzschild.ipynb**: Example worksheet for the Schwarzschild metric with covariant null-tetrad vectors.
+	
+- **SageNPExample_ReissnerNordstrom.ipynb**: Example worksheet for the Reissner-Nordstrom metric with contravariant null-tetrad vectors.
 
 # REFERENCE:
 
