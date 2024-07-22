@@ -48,25 +48,25 @@ H. Stephani, D. Kramer, M. MacCallum, C. Hoenselaers, and E. Herlt, "Exact Solut
 
 # INSTRUCTIONS WITH EXAMPLES:
 
-- Import the class:
+- **Import the class:**
   
     from SageNP import *
     
-- Define your manifold:
+- **Define your manifold:**
   
     MyManifold = Manifold(4 , 'MyManifold', r'\mathcal{Man}')
 
-- Define your coordinates:
+- **Define your coordinates:**
   
     MyCoordinates.<t,r,th,ph> = MyManifold.chart(r't r th:\theta ph:\phi')
 
-- Define the metric functions (if needed):
+- **Define the metric functions (if needed):**
 
     var('M')
     Delta=function('Delta',imag_part_func=0)(r)
     Delta=r^2-2*M*r
     
-- Enter null tetrad elements:
+- **Enter null tetrad elements:**
 
     lvec=[1,-(r^2)/Delta,0,0]
   
@@ -78,7 +78,7 @@ H. Stephani, D. Kramer, M. MacCallum, C. Hoenselaers, and E. Herlt, "Exact Solut
 
     *Here, the element ordering is the same as the coordinate ordering. (The first element is the t element, the second is the r element, etc.)
 
-- Define an object of the class:
+- **Define an object of the class:**
   
     schw=SageNP(MyManifold,MyCoordinates,lvec,nvec,mvec,mbarvec,'covariant')
   
