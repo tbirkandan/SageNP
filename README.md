@@ -1,6 +1,6 @@
 # SageNP: Newman-Penrose calculations for SageMath. 
 
-The class **SageNP** includes functions for some calculations defined in the Newman-Penrose formalism. The code is based on SageManifolds.
+The class **SageNP** includes functions for some calculations defined in the Newman-Penrose formalism. The code is based on SageManifolds package of SageMath.
 
 # Code by:                                        
 
