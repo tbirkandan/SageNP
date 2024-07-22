@@ -90,129 +90,128 @@ H. Stephani, D. Kramer, M. MacCallum, C. Hoenselaers, and E. Herlt, "Exact Solut
 
 # FUNCTIONS:
 
-- All page and equation numbers belong to the reference book.
+- *All page and equation numbers belong to the reference book.*
 
 
-- test_nulltetrad(): Checks the products of the vectors l*n = -1, m*mbar = 1, all others zero.
+- **test_nulltetrad()**: Checks the products of the vectors l*n = -1, m*mbar = 1, all others zero.
 
 
-- Spin coefficients (Page 75-76, Eq.(7.2)):
+- **Spin coefficients (Page 75-76, Eq.(7.2))**:
     
-    - calculate_spincoefficients(): Calculates the spin coefficients.
+    - **calculate_spincoefficients()**: Calculates the spin coefficients.
     
-    - show_spincoefficients(): Displays the spin coefficients
+    - **show_spincoefficients()**: Displays the spin coefficients
     
     - All spin coefficients are available under their names:
       
-      kappaNP, kappabarNP, tauNP, taubarNP, sigmaNP, sigmabarNP,
+      **kappaNP, kappabarNP, tauNP, taubarNP, sigmaNP, sigmabarNP,
       rhoNP, rhobarNP, piNP, pibarNP, nuNP, nubarNP, muNP, mubarNP,
       lambdaNP, lambdabarNP, epsilonNP, epsilonbarNP, gammaNP, gammabarNP,
-      betaNP, betabarNP, alphaNP, alphabarNP
+      betaNP, betabarNP, alphaNP, alphabarNP**
 
       
-- Directional derivatives (Page 43, Eq.(3.82)):
+- **Directional derivatives (Page 43, Eq.(3.82))**:
 
-    - DlNP(X): Given X, calculates the D derivative (l direction).
+    - **DlNP(X)**: Given X, calculates the D derivative (l direction).
 
-    - DeltanNP(X): Given X, calculates the Delta derivative (n direction)
+    - **DeltanNP(X)**: Given X, calculates the Delta derivative (n direction)
     
-    - deltamNP(X): Given X, calculates the delta derivative (m direction)
+    - **deltamNP(X)**: Given X, calculates the delta derivative (m direction)
     
-    - deltambarNP(X): Given X, calculates the deltabar derivative (mbar direction)
-
-
-- Commutators (Page 77, Eq.(7.6)):
-
-    - The right-hand sides of the commutation relations are calculated.
-    
-    - Deltan_Dl_commNP(X): Given X, calculates the [Delta,D] commutator.
-    
-    - deltam_Dl_commNP(X): Given X, calculates the [delta,D] commutator.
-    
-    - deltam_Deltan_commNP(X): Given X, calculates the [delta,Delta] commutator.
-    
-    - deltambar_deltam_commNP(X): Given X, calculates the [deltabar,delta] commutator.
+    - **deltambarNP(X)**: Given X, calculates the deltabar derivative (mbar direction)
 
 
-- Weyl tensor components (Page 38, Eq.(3.59)):
+- **Commutators (Page 77, Eq.(7.6))**:
+
+    - *The right-hand sides of the commutation relations are calculated.*
     
-    - calculate_Weyl(): Calculates the Weyl tensor components.
+    - **Deltan_Dl_commNP(X)**: Given X, calculates the [Delta,D] commutator.
     
-    - show_Weyl(): Displays the Weyl tensor components.
+    - **deltam_Dl_commNP(X)**: Given X, calculates the [delta,D] commutator.
+    
+    - **deltam_Deltan_commNP(X)**: Given X, calculates the [delta,Delta] commutator.
+    
+    - **deltambar_deltam_commNP(X)**: Given X, calculates the [deltabar,delta] commutator.
+
+
+- **Weyl tensor components (Page 38, Eq.(3.59))**:
+    
+    - **calculate_Weyl()**: Calculates the Weyl tensor components.
+    
+    - **show_Weyl()**: Displays the Weyl tensor components.
     
     - All Weyl tensor components are available under their names:
       
-      Psi0NP, Psi1NP, Psi2NP, Psi3NP, Psi4NP
+      **Psi0NP, Psi1NP, Psi2NP, Psi3NP, Psi4NP**
 
 
-- Ricci components (Page 78, Eq.(7.10-7.15)):
+- **Ricci components (Page 78, Eq.(7.10-7.15))**:
     
-    - calculate_Ricci(): Calculates the Ricci tensor components.
+    - **calculate_Ricci()**: Calculates the Ricci tensor components.
     
-    - show_Ricci(): Displays the Ricci tensor components.
+    - **show_Ricci()**: Displays the Ricci tensor components.
     
     - All Ricci tensor components are available under their names:
       
-      Phi00NP, Phi01NP, Phi10NP, Phi02NP, Phi20NP, 
-      Phi11NP, Phi12NP, Phi21NP, Phi22NP, LambdaNP
+      **Phi00NP, Phi01NP, Phi10NP, Phi02NP, Phi20NP, 
+      Phi11NP, Phi12NP, Phi21NP, Phi22NP, LambdaNP**
 
 
-- Ricci (Newman-Penrose) equations (Page 79, Eq.(7.21)):
+- **Ricci (Newman-Penrose) equations (Page 79, Eq.(7.21))**:
     
-    - All Newman-Penrose equations are defined as 
-      0 = -(left hand side)+(right hand side) of the equations
+    - *All Newman-Penrose equations are defined as 0 = -(left hand side)+(right hand side) of the equations.*
     
-    - calculate_NPeq(): Calculates the Newman-Penrose equations
+    - **calculate_NPeq()**: Calculates the Newman-Penrose equations
     
-    - show_NPeq(): Displays the Newman-Penrose equations
+    - **show_NPeq()**: Displays the Newman-Penrose equations
     
     - All Newman-Penrose equations are available under their names
       in the order they are given in the reference:
   
-      NPeq1, NPeq2, NPeq3, NPeq4, NPeq5, NPeq6, NPeq7, NPeq8, NPeq9, NPeq10, 
-      NPeq11, NPeq12, NPeq13, NPeq14, NPeq15, NPeq16, NPeq17, NPeq18,
+      **NPeq1, NPeq2, NPeq3, NPeq4, NPeq5, NPeq6, NPeq7, NPeq8, NPeq9, NPeq10, 
+      NPeq11, NPeq12, NPeq13, NPeq14, NPeq15, NPeq16, NPeq17, NPeq18**
 
 
-- Bianchi identities (Page 81, Eq.(7.32)):
+- **Bianchi identities (Page 81, Eq.(7.32))**:
     
-    - All Bianchi identities are defined as 
-      0 = -(left hand side)+(right hand side) of the equations
+    - *All Bianchi identities are defined as 0 = -(left hand side)+(right hand side) of the equations.*
     
-    - calculate_Bianchi(): Calculates the Bianchi identities
+    - **calculate_Bianchi()**: Calculates the Bianchi identities
     
-    - show_Bianchi(): Displays the Bianchi identities
+    - **show_Bianchi()**: Displays the Bianchi identities
     
     - All Bianchi identities are available under their names
       in the order they are given in the reference:
       
-      BI1, BI2, BI3, BI4, BI5, BI6, BI7, BI8, BI9, BI10, BI11
+      **BI1, BI2, BI3, BI4, BI5, BI6, BI7, BI8, BI9, BI10, BI11**
 
 
-- Petrov invariants I, J, K, L, N (Kramer p.121, 9.6; p.54, 4.19):
-  (also check diagram Fig. 9.1 on p. 122)
+- **Petrov invariants I, J, K, L, N (Kramer p.121, 9.6; p.54, 4.19)**:
+
+  *(also check diagram Fig. 9.1 on p. 122)*
   
-    - calculate_PetrovinvINP(): Calculates the Petrov invariant I
+    - **calculate_PetrovinvINP()**: Calculates the Petrov invariant I
   
-    - calculate_PetrovinvJNP(): Calculates the Petrov invariant J
+    - **calculate_PetrovinvJNP()**: Calculates the Petrov invariant J
     
-    - calculate_PetrovinvKNP(): Calculates the Petrov invariant K
+    - **calculate_PetrovinvKNP()**: Calculates the Petrov invariant K
     
-    - calculate_PetrovinvLNP(): Calculates the Petrov invariant L
+    - **calculate_PetrovinvLNP()**: Calculates the Petrov invariant L
     
-    - calculate_PetrovinvNNP(): Calculates the Petrov invariant N
+    - **calculate_PetrovinvNNP()**: Calculates the Petrov invariant N
 
     - All Petrov invariants are available under their names:
       
-      PetrovinvINP, PetrovinvJNP, PetrovinvKNP, PetrovinvLNP, PetrovinvNNP
+      **PetrovinvINP, PetrovinvJNP, PetrovinvKNP, PetrovinvLNP, PetrovinvNNP**
 
 
-- Petrov type of the spacetime:
-    - Petrov_frominvariants(): Calculates the Petrov type using I, J, K, L, N.
+- **Petrov type of the spacetime**:
+    - **Petrov_frominvariants()**: Calculates the Petrov type using I, J, K, L, N.
       
-    - Petrov_fromWeyl(): Calculates the Petrov type using the Weyl components
+    - **Petrov_fromWeyl()**: Calculates the Petrov type using the Weyl components
 
 
-- calculate_allNP(): Runs the following functions:
+- **calculate_allNP()**: Runs the following functions:
   
     - calculate_spincoefficients()
 
@@ -228,7 +227,7 @@ H. Stephani, D. Kramer, M. MacCallum, C. Hoenselaers, and E. Herlt, "Exact Solut
 
     - Petrov_fromWeyl()
 
-- show_allNP(): Runs the following functions:
+- **show_allNP()**: Runs the following functions:
 
     - show_spincoefficients()
 
