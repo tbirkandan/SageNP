@@ -130,6 +130,8 @@ FUNCTIONS:
 
 - Commutators (Page 77, Eq.(7.6)):
     
+    - The right-hand sides of the commutation relations are calculated.
+    
     - Deltan_Dl_commNP(X): Given X, calculates the [Delta,D] commutator.
     
     - deltam_Dl_commNP(X): Given X, calculates the [delta,D] commutator.
