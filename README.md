@@ -76,17 +76,17 @@ H. Stephani, D. Kramer, M. MacCallum, C. Hoenselaers, and E. Herlt, "Exact Solut
 
     mbarvec=[0,0,(-r/sqrt(2)),(I*r/sqrt(2))*sin(th)]
 
-    *Here, the element ordering is the same as the coordinate ordering. (The first element is the t element, the second is the r element, etc.)
+    - *Here, the element ordering is the same as the coordinate ordering. (The first element is the t element, the second is the r element, etc.)*
 
 - **Define an object of the class:**
   
     schw=SageNP(MyManifold,MyCoordinates,lvec,nvec,mvec,mbarvec,'covariant')
   
-  *Here, our null-tetrad vectors lvec, nvec, mvec and mbarvec are covariant. Thus we used the keyword 'covariant'.
+  - *Here, our null-tetrad vectors lvec, nvec, mvec and mbarvec are covariant. Thus we used the keyword 'covariant'.*
   
-  *If they were contravariant, then we should use the keyword 'contravariant'.
+  - *If they were contravariant, then we should use the keyword 'contravariant'.*
 
-- Once the object is defined, the code calculates the metric and displays it on the screen. It is recommended that you check your metric.
+- **Once the object is defined, the code calculates the metric and displays it on the screen. It is recommended that you check your metric.**
 
 # FUNCTIONS:
 
