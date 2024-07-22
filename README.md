@@ -32,17 +32,12 @@ H. Stephani, D. Kramer, M. MacCallum, C. Hoenselaers, and E. Herlt, "Exact Solut
 
 * We will use the Metric signature: (- + + +)                      
 
-* For the null-tetrad vector names,
-
-- The ref. book uses (k,l,m,mbar)
-
-- However, in the code we will use (l,n,m,mbar) like the rest of the literature.
-
-- Therefore one should set k->l, l->n in the ref. book
+* For the null-tetrad vector names, the ref. book uses (k,l,m,mbar). However, in the code we will use (l,n,m,mbar) like the rest of the literature. Therefore one should set k->l, l->n in the ref. book
 
 - Products of the vectors are given by: l*n = -1, m*mbar = 1, all others zero.  
   
 - The metric is found using the covariant null-tetrad vectors as:
+  
     g = -2*l*n + 2*m*mbar
                             
   and,
