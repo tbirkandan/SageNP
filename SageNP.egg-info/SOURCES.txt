@@ -1,0 +1,9 @@
+LICENSE
+LICENSE:Zone.Identifier
+README.md
+setup.cfg
+setup.py
+SageNP.egg-info/PKG-INFO
+SageNP.egg-info/SOURCES.txt
+SageNP.egg-info/dependency_links.txt
+SageNP.egg-info/top_level.txt
