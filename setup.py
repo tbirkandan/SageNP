@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="SageNP",
-    version="0.1",
+    version="0.2",
     author="Tolga Birkandan, Emir Baysazan, Pelin Ozturk",
     author_email="birkandant@itu.edu.tr",
     description="Newman-Penrose calculations for SageMath",
