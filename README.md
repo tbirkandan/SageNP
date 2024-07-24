@@ -12,6 +12,8 @@ The class **SageNP** includes functions for some calculations defined in the New
 
 - **Special thanks to Eric Gourgoulhon**
 
+# Installation:
+Just run **pip install SageNP**
 
 # FILES:
 
