@@ -51,7 +51,7 @@ H. Stephani, D. Kramer, M. MacCallum, C. Hoenselaers, and E. Herlt, "Exact Solut
 
 - **Import the class:**
   
-    from SageNP import *
+    from SageNP import NewmanPenrose
     
 - **Define your manifold:**
   
@@ -64,7 +64,6 @@ H. Stephani, D. Kramer, M. MacCallum, C. Hoenselaers, and E. Herlt, "Exact Solut
 - **Define the metric functions (if needed):**
 
     var('M')
-    Delta=function('Delta',imag_part_func=0)(r)
     Delta=r^2-2*M*r
     
 - **Enter null tetrad elements:**
