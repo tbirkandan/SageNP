@@ -18,11 +18,11 @@ The class **SageNP** includes functions for some calculations defined in the New
 
 - **[SageNP_Tutorial.ipynb](https://github.com/tbirkandan/SageNP/blob/main/Notebooks/SageNP_Tutorial.ipynb)**: Tutorial (ipynb file) 
 
-- **SageNP_Tutorial.pdf**: Tutorial (PDF file) 
+- **[SageNP_Tutorial.pdf](https://github.com/tbirkandan/SageNP/blob/main/Notebooks/SageNP_Tutorial.pdf)**: Tutorial (PDF file) 
 
-- **SageNPExample_Schwarzschild.ipynb**: Example worksheet for the Schwarzschild metric with covariant null-tetrad vectors.
+- **[SageNPExample_Schwarzschild.ipynb](https://github.com/tbirkandan/SageNP/blob/main/Notebooks/SageNPExample_Schwarzschild.ipynb)**: Example worksheet for the Schwarzschild metric with covariant null-tetrad vectors.
 	
-- **SageNPExample_ReissnerNordstrom.ipynb**: Example worksheet for the Reissner-Nordstrom metric with contravariant null-tetrad vectors.
+- **[SageNPExample_ReissnerNordstrom.ipynb]([SageNPExample_Schwarzschild.ipynb](https://github.com/tbirkandan/SageNP/blob/main/Notebooks/SageNPExample_ReissnerNordstrom.ipynb)**: Example worksheet for the Reissner-Nordstrom metric with contravariant null-tetrad vectors.
 
 # REFERENCE:
 
