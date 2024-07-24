@@ -44,6 +44,9 @@ H. Stephani, D. Kramer, M. MacCallum, C. Hoenselaers, and E. Herlt, "Exact Solut
   where
 
    $g_{ab}=-l_a n_b-n_a l_b+ m_a \overline{m}_b + \overline{m}_a m_b$
+
+  $$\begin{pmatrix}a & b\\\ c & d\end{pmatrix}$$
+
                             
   and,
 
