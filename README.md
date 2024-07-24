@@ -44,18 +44,10 @@ H. Stephani, D. Kramer, M. MacCallum, C. Hoenselaers, and E. Herlt, "Exact Solut
   where
 
    $g_{ab}=-l_a n_b-n_a l_b+ m_a \overline{m}_b + \overline{m}_a m_b$
-
-  $$\begin{pmatrix}a & b\\\ c & d\end{pmatrix}$$
-
                             
   and,
 
-  $g=\begin{pmatrix}
-      0 & 1 & 0 & 0\\
-      1 & 0 & 0 & 0\\
-      0 & 0 & 0 & -1\\
-      0 & 0 & -1 & 0\\
-    \end{pmatrix}$
+  $g=\begin{bmatrix}0 & 1 & 0 & 0\\1 & 0 & 0 & 0\\0 & 0 & 0 & -1\\0 & 0 & -1 & 0 \end{bmatrix}$
 
 - Please check the [reference book](https://www.cambridge.org/core/books/exact-solutions-of-einsteins-field-equations/11CF6CFCC10CC62B9B299F08C32C37A6) for the details and further definitions.
 
