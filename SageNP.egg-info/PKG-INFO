@@ -1,3 +1,19 @@
+Metadata-Version: 2.1
+Name: SageNP
+Version: 0.1
+Summary: Newman-Penrose calculations for SageMath
+Home-page: https://github.com/tbirkandan/SageNP
+Author: Tolga Birkandan, Emir Baysazan, Pelin Ozturk
+Author-email: birkandant@itu.edu.tr
+Keywords: SageMath,Newman-Penrose formalism,Petrov classification
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: Topic :: Scientific/Engineering :: Physics
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
 # SageNP: Newman-Penrose calculations for SageMath. 
 
 The class **SageNP** includes functions for some calculations defined in the Newman-Penrose formalism. The code is based on SageManifolds.
