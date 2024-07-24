@@ -12,9 +12,6 @@ The class **SageNP** includes functions for some calculations defined in the New
 
 - **Special thanks to Eric Gourgoulhon**
 
-# Installation:
-Using pip: pip install SageNP
-
 # FILES:
 
 - **SageNP.py**: Main file to import in SageMath.
