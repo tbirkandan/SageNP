@@ -1,4 +1,4 @@
-from sage.all import Integer, show, vector, SR, function, matrix
+from sage.all import var,Integer, show, vector, SR, function, matrix, I, solve
 
 _sage_const_4 = Integer(4); _sage_const_0 = Integer(0); _sage_const_1 = Integer(1); _sage_const_2 = Integer(2); _sage_const_10 = Integer(10); _sage_const_3 = Integer(3); _sage_const_5 = Integer(5); _sage_const_6 = Integer(6); _sage_const_7 = Integer(7); _sage_const_8 = Integer(8); _sage_const_9 = Integer(9); _sage_const_24 = Integer(24); _sage_const_12 = Integer(12); _sage_const_27 = Integer(27); _sage_const_54 = Integer(54)
 
