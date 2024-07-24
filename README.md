@@ -16,7 +16,7 @@ The class **SageNP** includes functions for some calculations defined in the New
 
 - **SageNP.py**: Main file to import in SageMath.
 
-- **SageNP_Tutorial.ipynb**: Tutorial (ipynb file) 
+- **[SageNP_Tutorial.ipynb](https://github.com/tbirkandan/SageNP/blob/main/Notebooks/SageNP_Tutorial.ipynb)**: Tutorial (ipynb file) 
 
 - **SageNP_Tutorial.pdf**: Tutorial (PDF file) 
 
