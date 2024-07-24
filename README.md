@@ -13,7 +13,7 @@ The class **SageNP** includes functions for some calculations defined in the New
 - **Special thanks to Eric Gourgoulhon**
 
 # Installation:
-pip install SageNP
+Using pip: pip install SageNP
 
 # FILES:
 
