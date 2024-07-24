@@ -2,7 +2,7 @@
 
 The class **SageNP** includes functions for some calculations defined in the Newman-Penrose formalism. The code is based on SageManifolds.
 
-# Code by:                                        
+# Coded by:                                        
 
 - Tolga Birkandan (Corr.: birkandant@itu.edu.tr)
 
@@ -11,6 +11,9 @@ The class **SageNP** includes functions for some calculations defined in the New
 - Pelin Ozturk                                   
 
 - **Special thanks to Eric Gourgoulhon**
+
+# Installation:
+pip install SageNP
 
 # FILES:
 
