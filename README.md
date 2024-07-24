@@ -31,21 +31,30 @@ H. Stephani, D. Kramer, M. MacCallum, C. Hoenselaers, and E. Herlt, "Exact Solut
 
 # BASIC DEFINITIONS AND NOTATION:
 
-* We will use the Metric signature: (- + + +)                      
+* We will use the metric signature: (- + + +)                      
 
-* For the null-tetrad vector names, the ref. book uses (k,l,m,mbar). However, in the code we will use (l,n,m,mbar) like the rest of the literature. Therefore one should set k->l, l->n in the ref. book
+* For the null-tetrad vector names, the ref. book uses $(k,l,m,\overline{m})$. However, in the code we will use $(l,n,m,\overline{m})$ like the rest of the literature. **Therefore one should set $k \rightarrow l, l \rightarrow n$ in the ref. book.**
 
-- Products of the vectors are given by: l*n = -1, m*mbar = 1, all others zero.  
+- Products of the vectors are given by: $l^a n_a=-1, m^a \overline{m}_a=1$, all others zero.  
   
 - The metric is found using the covariant null-tetrad vectors as:
   
-    g = -2*l*n + 2*m*mbar
+    $ds^2=g_{\mu \nu}dx^\mu \otimes dx^\nu=- l\otimes n-n\otimes l + m\otimes \overline{m}  + \overline{m} \otimes m$
+
+  where
+
+    $g_{ab}=-l_a n_b-n_a l_b+ m_a \overline{m}_b + \overline{m}_a m_b$
                             
   and,
 
-    g = [[0  1  0  0], [1  0  0  0], [0  0  0 -1], [0  0 -1  0]]
+    $g=\begin{bmatrix}
+    0 & 1 & 0 & 0\\
+    1 & 0 & 0 & 0\\
+    0 & 0 & 0 & -1\\
+    0 & 0 & -1 & 0\\
+    \end{bmatrix}$
 
-- Please check the reference book for the details and further definitions.
+- Please check the [reference book](https://www.cambridge.org/core/books/exact-solutions-of-einsteins-field-equations/11CF6CFCC10CC62B9B299F08C32C37A6) for the details and further definitions.
 
 # INSTRUCTIONS WITH EXAMPLES:
 
