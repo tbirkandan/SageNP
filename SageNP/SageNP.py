@@ -1,21 +1,29 @@
-from sage.all import var,Integer, show, vector, SR, function, matrix, I, solve
+from sage.calculus.var import var
+from sage.calculus.var import function
+from sage.symbolic.ring import SR
+from sage.symbolic.relation import solve
+from sage.rings.integer import Integer
+from sage.rings.imaginary_unit import I
+from sage.repl.rich_output.pretty_print import show
+from sage.modules.free_module_element import vector
+from sage.matrix.constructor import matrix
 
 _sage_const_4 = Integer(4); _sage_const_0 = Integer(0); _sage_const_1 = Integer(1); _sage_const_2 = Integer(2); _sage_const_10 = Integer(10); _sage_const_3 = Integer(3); _sage_const_5 = Integer(5); _sage_const_6 = Integer(6); _sage_const_7 = Integer(7); _sage_const_8 = Integer(8); _sage_const_9 = Integer(9); _sage_const_24 = Integer(24); _sage_const_12 = Integer(12); _sage_const_27 = Integer(27); _sage_const_54 = Integer(54)
 
-####################################################
-# SageNP: Newman-Penrose Calculations for SageMath # 
-####################################################
-# Code by:                                         #
-# Tolga Birkandan (Corr.: birkandant@itu.edu.tr)   #
-# Emir Baysazan                                    #
-# Pelin Ozturk                                     #
-# Special thanks to Eric Gourgoulhon               #
-# Based on SageMath (SageManifolds)                #
-####################################################
+###########################################################
+# NewmanPenrose: Newman-Penrose Calculations for SageMath # 
+###########################################################
+# Code by:                                                #
+# Tolga Birkandan (Corr.: birkandant@itu.edu.tr)          #
+# Emir Baysazan                                           #
+# Pelin Ozturk                                            #
+# Special thanks to Eric Gourgoulhon                      #
+# Based on SageMath (SageManifolds)                       #
+###########################################################
 r"""
 ####################################################
 
-The class "SageNP" introduces functions into SageMath
+The class "NewmanPenrose" introduces functions into SageMath
 for some calculations defined in the Newman-Penrose formalism.
 
 ###########
@@ -61,7 +69,7 @@ BASIC DEFINITIONS AND NOTATION:
 INSTRUCTIONS WITH EXAMPLES:
 
 - Import the class:
-    from SageNP import *
+    from SageNP import NewmanPenrose
     
 - Define your manifold:
     MyManifold = Manifold(4 , 'MyManifold', r'\mathcal{Man}')
@@ -84,7 +92,7 @@ INSTRUCTIONS WITH EXAMPLES:
      (The first element is the t element, the second is the r element, etc.)
 
 - Define an object of the class:
-    schw=SageNP(MyManifold,MyCoordinates,lvec,nvec,mvec,mbarvec,'covariant')
+    schw=NewmanPenrose(MyManifold,MyCoordinates,lvec,nvec,mvec,mbarvec,'covariant')
   
   *Here, our null-tetrad vectors lvec, nvec, mvec and mbarvec 
    are covariant. Thus we used the keyword 'covariant'.
@@ -236,7 +244,7 @@ SAMPLE WORKSHEET 1:
 
 (SCHWARZSCHILD METRIC WITH COVARIANT NULL-TETRAD VECTORS)
 
-from SageNP import *
+from SageNP import NewmanPenrose
 
 ########################################
 # Define 4-dim. the manifold:
@@ -257,8 +265,8 @@ mvec=[0,0,(-r/sqrt(2)),(-I*r/sqrt(2))*sin(th)]
 mbarvec=[0,0,(-r/sqrt(2)),(I*r/sqrt(2))*sin(th)]
 ########################################
 
-# Define the object "schw" of the class "SageNP":
-schw=SageNP(MyManifold,MyCoordinates,lvec,nvec,mvec,mbarvec,'covariant')
+# Define the object "schw" of the class "NewmanPenrose":
+schw=NewmanPenrose(MyManifold,MyCoordinates,lvec,nvec,mvec,mbarvec,'covariant')
 
 # Test the null tetrad with vector products:
 schw.test_nulltetrad()
@@ -331,7 +339,7 @@ SAMPLE WORKSHEET 2:
 
 (REISSNER-NORDSTROM METRIC WITH CONTRAVARIANT NULL-TETRAD VECTORS)
 
-from SageNP import *
+from SageNP import NewmanPenrose
 
 ########################################
 # Define 4-dim. the manifold:
@@ -352,8 +360,8 @@ mveccont=[0,0,1/(r*sqrt(2)),I*csc(th)/(r*sqrt(2))]
 mbarveccont=[0,0,1/(r*sqrt(2)),-I*csc(th)/(r*sqrt(2))]
 ########################################
 
-# Define the object "reisnor" of the class "SageNP":
-reisnor=SageNP(MyManifold,MyCoordinates,lveccont,nveccont,mveccont,mbarveccont,'contravariant')
+# Define the object "reisnor" of the class "NewmanPenrose":
+reisnor=NewmanPenrose(MyManifold,MyCoordinates,lveccont,nveccont,mveccont,mbarveccont,'contravariant')
 
 # Test the null tetrad with vector products:
 reisnor.test_nulltetrad()
@@ -402,7 +410,7 @@ reisnor.Petrov_fromWeyl()
 """
 ####################################################
 
-class SageNP():
+class NewmanPenrose():
     ####################################################
     def __init__(self,Man,CO,lvecaux,nvecaux,mvecaux,mbarvecaux,vectype):
         self.Man=Man
@@ -482,10 +490,10 @@ class SageNP():
                 
                 covtetrad=solve([ll==_sage_const_0 ,nn==_sage_const_0 ,mm==_sage_const_0 ,mbarmbar==_sage_const_0 ,lm==_sage_const_0 ,lmbar==_sage_const_0 ,ml==_sage_const_0 ,mbarl==_sage_const_0 ,nm==_sage_const_0 ,nmbar==_sage_const_0 ,mn==_sage_const_0 ,mbarn==_sage_const_0 ,ln==_sage_const_0 ,nl==_sage_const_0 ,mmbar==_sage_const_0 ,mbarm==_sage_const_0 ],[l1,l2,l3,l4,n1,n2,n3,n4,m1r,m1i,m2r,m2i,m3r,m3i,m4r,m4i])
                 for i in range(_sage_const_4 ):
-                    self.lNPvec[i]=SageNP.simplify_fullfull(self.lNPvec[i].subs(covtetrad[_sage_const_0 ]))
-                    self.nNPvec[i]=SageNP.simplify_fullfull(self.nNPvec[i].subs(covtetrad[_sage_const_0 ]))
-                    self.mNPvec[i]=SageNP.simplify_fullfull(self.mNPvec[i].subs(covtetrad[_sage_const_0 ]))
-                    self.mbarNPvec[i]=SageNP.simplify_fullfull(self.mbarNPvec[i].subs(covtetrad[_sage_const_0 ]))
+                    self.lNPvec[i]=NewmanPenrose.simplify_fullfull(self.lNPvec[i].subs(covtetrad[_sage_const_0 ]))
+                    self.nNPvec[i]=NewmanPenrose.simplify_fullfull(self.nNPvec[i].subs(covtetrad[_sage_const_0 ]))
+                    self.mNPvec[i]=NewmanPenrose.simplify_fullfull(self.mNPvec[i].subs(covtetrad[_sage_const_0 ]))
+                    self.mbarNPvec[i]=NewmanPenrose.simplify_fullfull(self.mbarNPvec[i].subs(covtetrad[_sage_const_0 ]))
                 self.createmetric()
             #########################
             except:
@@ -495,12 +503,12 @@ class SageNP():
                 #print("Calculating inverse metric...")
                 for i in range(len(self.CO[:])):
                     for j in range(len(self.CO[:])):
-                        self.inversemetric[i,j]=SageNP.simplify_fullfull((-self.lNPvecup[i]*self.nNPvecup[j]-self.nNPvecup[i]*self.lNPvecup[j]
+                        self.inversemetric[i,j]=NewmanPenrose.simplify_fullfull((-self.lNPvecup[i]*self.nNPvecup[j]-self.nNPvecup[i]*self.lNPvecup[j]
                                             +self.mNPvecup[i]*self.mbarNPvecup[j]+self.mbarNPvecup[i]*self.mNPvecup[j]))
                 metricforinversion=self.inversemetric.inverse()
                 for i in range(len(self.CO[:])):
                     for j in range(len(self.CO[:])):
-                        metricforinversion[i,j]=SageNP.simplify_fullfull(metricforinversion[i,j])
+                        metricforinversion[i,j]=NewmanPenrose.simplify_fullfull(metricforinversion[i,j])
                         
                 for i in range(len(CO[:])):
                     self.lNPvec[i]=0
@@ -535,7 +543,7 @@ class SageNP():
         #print("Calculating metric...")
         for i in range(len(self.CO[:])):
             for j in range(len(self.CO[:])):
-                self.g[i,j]=SageNP.simplify_fullfull(-self.lNP[i].expr()*self.nNP[j].expr()
+                self.g[i,j]=NewmanPenrose.simplify_fullfull(-self.lNP[i].expr()*self.nNP[j].expr()
                                                      -self.nNP[i].expr()*self.lNP[j].expr()
                                                      +self.mNP[i].expr()*self.mbarNP[j].expr()
                                                      +self.mbarNP[i].expr()*self.mNP[j].expr())
@@ -584,16 +592,16 @@ class SageNP():
         # All must be zero
         print("Testing null tetrad...")
         testvectorNP=vector(SR,_sage_const_10 )
-        testvectorNP[_sage_const_0 ]=SageNP.simplify_fullfull((self.lupNP['^a']*self.mNP['_a']).expr())
-        testvectorNP[_sage_const_1 ]=SageNP.simplify_fullfull((self.lupNP['^a']*self.mbarNP['_a']).expr())
-        testvectorNP[_sage_const_2 ]=SageNP.simplify_fullfull((self.nupNP['^a']*self.mNP['_a']).expr())
-        testvectorNP[_sage_const_3 ]=SageNP.simplify_fullfull((self.nupNP['^a']*self.mbarNP['_a']).expr())
-        testvectorNP[_sage_const_4 ]=SageNP.simplify_fullfull((self.lupNP['^a']*self.lNP['_a']).expr())
-        testvectorNP[_sage_const_5 ]=SageNP.simplify_fullfull((self.nupNP['^a']*self.nNP['_a']).expr())
-        testvectorNP[_sage_const_6 ]=SageNP.simplify_fullfull((self.mupNP['^a']*self.mNP['_a']).expr())
-        testvectorNP[_sage_const_7 ]=SageNP.simplify_fullfull((self.mbarupNP['^a']*self.mbarNP['_a']).expr())
-        testvectorNP[_sage_const_8 ]=SageNP.simplify_fullfull((self.lupNP['^a']*self.nNP['_a']).expr()+_sage_const_1 )
-        testvectorNP[_sage_const_9 ]=SageNP.simplify_fullfull((self.mupNP['^a']*self.mbarNP['_a']).expr()-_sage_const_1 )
+        testvectorNP[_sage_const_0 ]=NewmanPenrose.simplify_fullfull((self.lupNP['^a']*self.mNP['_a']).expr())
+        testvectorNP[_sage_const_1 ]=NewmanPenrose.simplify_fullfull((self.lupNP['^a']*self.mbarNP['_a']).expr())
+        testvectorNP[_sage_const_2 ]=NewmanPenrose.simplify_fullfull((self.nupNP['^a']*self.mNP['_a']).expr())
+        testvectorNP[_sage_const_3 ]=NewmanPenrose.simplify_fullfull((self.nupNP['^a']*self.mbarNP['_a']).expr())
+        testvectorNP[_sage_const_4 ]=NewmanPenrose.simplify_fullfull((self.lupNP['^a']*self.lNP['_a']).expr())
+        testvectorNP[_sage_const_5 ]=NewmanPenrose.simplify_fullfull((self.nupNP['^a']*self.nNP['_a']).expr())
+        testvectorNP[_sage_const_6 ]=NewmanPenrose.simplify_fullfull((self.mupNP['^a']*self.mNP['_a']).expr())
+        testvectorNP[_sage_const_7 ]=NewmanPenrose.simplify_fullfull((self.mbarupNP['^a']*self.mbarNP['_a']).expr())
+        testvectorNP[_sage_const_8 ]=NewmanPenrose.simplify_fullfull((self.lupNP['^a']*self.nNP['_a']).expr()+_sage_const_1 )
+        testvectorNP[_sage_const_9 ]=NewmanPenrose.simplify_fullfull((self.mupNP['^a']*self.mbarNP['_a']).expr()-_sage_const_1 )
         if sum(testvectorNP)==_sage_const_0 :
             print("PASSED")
         else:
@@ -991,12 +999,12 @@ class SageNP():
                 self.calculate_PetrovinvNNP()
             #########################
             print("Calculating Petrov Type...")
-            LL=SageNP.simplify_fullfull(self.PetrovinvLNP.expr())
-            JJ=SageNP.simplify_fullfull(self.PetrovinvJNP.expr())
-            II=SageNP.simplify_fullfull(self.PetrovinvINP.expr())
-            KK=SageNP.simplify_fullfull(self.PetrovinvKNP.expr())
-            NN=SageNP.simplify_fullfull(self.PetrovinvNNP.expr())
-            IIJJterm=SageNP.simplify_fullfull((II**_sage_const_3 -_sage_const_27 *JJ**_sage_const_2 ))
+            LL=NewmanPenrose.simplify_fullfull(self.PetrovinvLNP.expr())
+            JJ=NewmanPenrose.simplify_fullfull(self.PetrovinvJNP.expr())
+            II=NewmanPenrose.simplify_fullfull(self.PetrovinvINP.expr())
+            KK=NewmanPenrose.simplify_fullfull(self.PetrovinvKNP.expr())
+            NN=NewmanPenrose.simplify_fullfull(self.PetrovinvNNP.expr())
+            IIJJterm=NewmanPenrose.simplify_fullfull((II**_sage_const_3 -_sage_const_27 *JJ**_sage_const_2 ))
             if IIJJterm==_sage_const_0 :
                 if II==_sage_const_0  and JJ==_sage_const_0 :
                     if KK==_sage_const_0  and LL==_sage_const_0 :
@@ -1020,11 +1028,11 @@ class SageNP():
             self.Petrov_fromWeyl()
         else:
             print("Calculating Petrov Type...")
-            psi0=SageNP.simplify_fullfull(self.Psi0NP.expr())
-            psi1=SageNP.simplify_fullfull(self.Psi1NP.expr())
-            psi2=SageNP.simplify_fullfull(self.Psi2NP.expr())
-            psi3=SageNP.simplify_fullfull(self.Psi3NP.expr())
-            psi4=SageNP.simplify_fullfull(self.Psi4NP.expr())
+            psi0=NewmanPenrose.simplify_fullfull(self.Psi0NP.expr())
+            psi1=NewmanPenrose.simplify_fullfull(self.Psi1NP.expr())
+            psi2=NewmanPenrose.simplify_fullfull(self.Psi2NP.expr())
+            psi3=NewmanPenrose.simplify_fullfull(self.Psi3NP.expr())
+            psi4=NewmanPenrose.simplify_fullfull(self.Psi4NP.expr())
             if psi0==_sage_const_0  and psi1==_sage_const_0  and psi2==_sage_const_0  and psi3==_sage_const_0  and psi4==_sage_const_0 :
                 print("Petrov Type O")
             elif psi0==_sage_const_0  and psi1==_sage_const_0  and psi2==_sage_const_0  and psi3==_sage_const_0 :
