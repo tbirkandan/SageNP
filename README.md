@@ -22,7 +22,7 @@ The class **SageNP** includes functions for some calculations defined in the New
 
 - **[SageNPExample_Schwarzschild.ipynb](https://github.com/tbirkandan/SageNP/blob/main/Notebooks/SageNPExample_Schwarzschild.ipynb)**: Example worksheet for the Schwarzschild metric with covariant null-tetrad vectors.
 	
-- **[SageNPExample_ReissnerNordstrom.ipynb]([SageNPExample_Schwarzschild.ipynb](https://github.com/tbirkandan/SageNP/blob/main/Notebooks/SageNPExample_ReissnerNordstrom.ipynb)**: Example worksheet for the Reissner-Nordstrom metric with contravariant null-tetrad vectors.
+- **[SageNPExample_ReissnerNordstrom.ipynb](https://github.com/tbirkandan/SageNP/blob/main/Notebooks/SageNPExample_ReissnerNordstrom.ipynb)**: Example worksheet for the Reissner-Nordstrom metric with contravariant null-tetrad vectors.
 
 # REFERENCE:
 
