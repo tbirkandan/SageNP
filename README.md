@@ -12,7 +12,7 @@ The class **SageNP** includes functions for some calculations defined in the New
 
 - [Selinay Sude Binici](https://scholar.google.com/citations?user=OjiOpogAAAAJ&hl=tr)
 
-- [Pelin Ozturk] (https://www.linkedin.com/in/pelin-%C3%B6zt%C3%BCrk-3904572b2/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app)
+- [Pelin Ozturk](https://www.linkedin.com/in/pelin-%C3%B6zt%C3%BCrk-3904572b2/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app)
 
 - **Special thanks to [Eric Gourgoulhon](https://luth.obspm.fr/~luthier/gourgoulhon/en/)**
 
