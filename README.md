@@ -1,5 +1,7 @@
 # SageNP: Newman-Penrose calculations for SageMath. 
 
+This work is funded by TUBITAK 1001 Program, Grant Number 123R114.
+
 The class **SageNP** includes functions for some calculations defined in the Newman-Penrose formalism. The code is based on SageManifolds.
 
 # Coded by:                                        
