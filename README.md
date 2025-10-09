@@ -16,6 +16,8 @@ The class **SageNP** includes functions for some calculations defined in the New
 
 - [Pelin Ozturk](https://www.linkedin.com/in/pelin-%C3%B6zt%C3%BCrk-3904572b2/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app)
 
+- Efe Özyürek
+
 - **Special thanks to [Eric Gourgoulhon](https://luth.obspm.fr/~luthier/gourgoulhon/en/)**
 
 
