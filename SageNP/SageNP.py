@@ -8,6 +8,8 @@ from sage.rings.imaginary_unit import I
 from sage.repl.rich_output.pretty_print import show
 from sage.modules.free_module_element import vector
 from sage.matrix.constructor import matrix
+from multiprocessing import Pool, cpu_count
+from sage.all import *
 
 
 _sage_const_4 = Integer(4); _sage_const_0 = Integer(0); _sage_const_1 = Integer(1); _sage_const_2 = Integer(2); _sage_const_10 = Integer(10); _sage_const_3 = Integer(3); _sage_const_5 = Integer(5); _sage_const_6 = Integer(6); _sage_const_7 = Integer(7); _sage_const_8 = Integer(8); _sage_const_9 = Integer(9); _sage_const_24 = Integer(24); _sage_const_12 = Integer(12); _sage_const_27 = Integer(27); _sage_const_54 = Integer(54)
@@ -21,6 +23,7 @@ _sage_const_4 = Integer(4); _sage_const_0 = Integer(0); _sage_const_1 = Integer(
 # Emir Baysazan                                           #
 # Selinay Sude Binici                                     #
 # Pelin Ozturk                                            #
+# Efe Ozyurek                                             #
 # Special thanks to Eric Gourgoulhon                      #
 # Based on SageMath (SageManifolds)                       #
 ###########################################################
@@ -231,7 +234,6 @@ FUNCTIONS:
     - calculate_Ricci()
     - calculate_NPeq()
     - calculate_Bianchi()
-    - Petrov_frominvariants()
     - Petrov_fromWeyl()
 
 - show_allNP(): Runs the following functions:
@@ -240,8 +242,6 @@ FUNCTIONS:
     - show_Ricci()
     - show_NPeq()
     - show_Bianchi()
-    - Petrov_frominvariants()
-    - Petrov_fromWeyl()
 
 ####################################################
 SAMPLE WORKSHEET 1:
@@ -413,6 +413,158 @@ reisnor.Petrov_fromWeyl()
 ####################################################
 """
 ####################################################
+def compute_spin_component(args):
+    self, component = args
+    if component ==0:
+        return "kappaNP", -self.nab(self.lNP)['_ij']*(self.mupNP*self.lupNP)['^ij']
+    elif component ==1:    
+        return "tauNP", -self.nab(self.lNP)['_ij']*(self.mupNP*self.nupNP)['^ij']
+    elif component ==2:    
+        return "sigmaNP", -self.nab(self.lNP)['_ij']*(self.mupNP*self.mupNP)['^ij']
+    elif component ==3:    
+        return "rhoNP", -self.nab(self.lNP)['_ij']*(self.mupNP*self.mbarupNP)['^ij']
+    elif component ==4:    
+        return "piNP", self.nab(self.nNP)['_ij']*(self.mbarupNP*self.lupNP)['^ij']
+    elif component ==5:    
+        return "nuNP", self.nab(self.nNP)['_ij']*(self.mbarupNP*self.nupNP)['^ij']
+    elif component ==6:    
+        return "muNP", self.nab(self.nNP)['_ij']*(self.mbarupNP*self.mupNP)['^ij']
+    elif component ==7:    
+        return "lambdaNP", self.nab(self.nNP)['_ij']*(self.mbarupNP*self.mbarupNP)['^ij']
+    elif component ==8:    
+        return "epsilonNP", -(_sage_const_1 /_sage_const_2 )*(self.nab(self.lNP)['_ij']*(self.nupNP*self.lupNP)['^ij']-self.nab(self.mNP)['_ij']*(self.mbarupNP*self.lupNP)['^ij'])
+    elif component ==9:    
+        return "gammaNP", (_sage_const_1 /_sage_const_2 )*(self.nab(self.nNP)['_ij']*(self.lupNP*self.nupNP)['^ij']-self.nab(self.mbarNP)['_ij']*(self.mupNP*self.nupNP)['^ij']) 
+    elif component ==10:    
+        return "betaNP", -(_sage_const_1 /_sage_const_2 )*(self.nab(self.lNP)['_ij']*(self.nupNP*self.mupNP)['^ij']-self.nab(self.mNP)['_ij']*(self.mbarupNP*self.mupNP)['^ij'])
+    elif component ==11:    
+        return "alphaNP", (_sage_const_1 /_sage_const_2 )*(self.nab(self.nNP)['_ij']*(self.lupNP*self.mbarupNP)['^ij']-self.nab(self.mbarNP)['_ij']*(self.mupNP*self.mbarupNP)['^ij']) 
+    elif component ==12:    
+        return "kappabarNP", -self.nab(self.lNP)['_ij']*(self.mbarupNP*self.lupNP)['^ij']
+    elif component ==13:    
+        return "taubarNP", -self.nab(self.lNP)['_ij']*(self.mbarupNP*self.nupNP)['^ij']
+    elif component ==14:    
+        return "sigmabarNP", -self.nab(self.lNP)['_ij']*(self.mbarupNP*self.mbarupNP)['^ij']
+    elif component ==15:    
+        return "rhobarNP", -self.nab(self.lNP)['_ij']*(self.mbarupNP*self.mupNP)['^ij']
+    elif component ==16:    
+        return "pibarNP", self.nab(self.nNP)['_ij']*(self.mupNP*self.lupNP)['^ij']
+    elif component ==17:    
+        return "nubarNP", self.nab(self.nNP)['_ij']*(self.mupNP*self.nupNP)['^ij']
+    elif component ==18:    
+        return "mubarNP", self.nab(self.nNP)['_ij']*(self.mupNP*self.mbarupNP)['^ij']
+    elif component ==19:    
+        return "lambdabarNP", self.nab(self.nNP)['_ij']*(self.mupNP*self.mupNP)['^ij']
+    elif component ==20:    
+        return "epsilonbarNP", -(_sage_const_1 /_sage_const_2 )*(self.nab(self.lNP)['_ij']*(self.nupNP*self.lupNP)['^ij']-self.nab(self.mbarNP)['_ij']*(self.mupNP*self.lupNP)['^ij'])
+    elif component ==21:    
+        return "gammabarNP", (_sage_const_1 /_sage_const_2 )*(self.nab(self.nNP)['_ij']*(self.lupNP*self.nupNP)['^ij']-self.nab(self.mNP)['_ij']*(self.mbarupNP*self.nupNP)['^ij'])
+    elif component ==22:    
+        return "betabarNP", -(_sage_const_1 /_sage_const_2 )*(self.nab(self.lNP)['_ij']*(self.nupNP*self.mbarupNP)['^ij']-self.nab(self.mbarNP)['_ij']*(self.mupNP*self.mbarupNP)['^ij'])
+    elif component ==23:    
+        return "alphabarNP", (_sage_const_1 /_sage_const_2 )*(self.nab(self.nNP)['_ij']*(self.lupNP*self.mupNP)['^ij']-self.nab(self.mNP)['_ij']*(self.mbarupNP*self.mupNP)['^ij'])
+
+def compute_weyl_component(args):
+    self, component = args
+    if component ==0:
+        return "Psi0NP", self.weyl_C_allindicesdown['_{pqrs}']*(self.lupNP*self.mupNP*self.lupNP*self.mupNP)['^{pqrs}']
+    elif component ==1: 
+        return "Psi1NP", self.weyl_C_allindicesdown['_{pqrs}']*(self.lupNP*self.nupNP*self.lupNP*self.mupNP)['^{pqrs}']
+    elif component ==2: 
+        return "Psi2NP", self.weyl_C_allindicesdown['_{pqrs}']*(self.lupNP*self.mupNP*self.mbarupNP*self.nupNP)['^{pqrs}']
+    elif component ==3: 
+        return "Psi3NP", self.weyl_C_allindicesdown['_{pqrs}']*(self.lupNP*self.nupNP*self.mbarupNP*self.nupNP)['^{pqrs}']
+    elif component ==4: 
+        return "Psi4NP", self.weyl_C_allindicesdown['_{pqrs}']*(self.mbarupNP*self.nupNP*self.mbarupNP*self.nupNP)['^{pqrs}']
+
+def compute_ricci_component(args):
+    self, component = args
+    if component ==0:
+    	return "Phi00NP", (_sage_const_1 /_sage_const_2 )*self.ricci_R_traceless_allindicesdown['_{ab}']*(self.lupNP*self.lupNP)['^{ab}']
+    elif component ==1: 
+        return "Phi01NP", (_sage_const_1 /_sage_const_2 )*self.ricci_R_traceless_allindicesdown['_{ab}']*(self.lupNP*self.mupNP)['^{ab}']
+    elif component ==2: 
+        return "Phi10NP", (_sage_const_1 /_sage_const_2 )*self.ricci_R_traceless_allindicesdown['_{ab}']*(self.lupNP*self.mbarupNP)['^{ab}']
+    elif component ==3: 
+        return "Phi02NP", (_sage_const_1 /_sage_const_2 )*self.ricci_R_traceless_allindicesdown['_{ab}']*(self.mupNP*self.mupNP)['^{ab}']
+    elif component ==4: 
+        return "Phi20NP", (_sage_const_1 /_sage_const_2 )*self.ricci_R_traceless_allindicesdown['_{ab}']*(self.mbarupNP*self.mbarupNP)['^{ab}']
+    elif component ==5: 
+        return "Phi11NP", (_sage_const_1 /_sage_const_4 )*(self.ricci_R_traceless_allindicesdown['_{ab}']*(self.lupNP*self.nupNP)['^{ab}']+self.ricci_R_traceless_allindicesdown['_{ab}']*(self.mupNP*self.mbarupNP)['^{ab}'])
+    elif component ==6: 
+        return "Phi12NP", (_sage_const_1 /_sage_const_2 )*self.ricci_R_traceless_allindicesdown['_{ab}']*(self.nupNP*self.mupNP)['^{ab}']
+    elif component ==7: 
+        return "Phi21NP", (_sage_const_1 /_sage_const_2 )*self.ricci_R_traceless_allindicesdown['_{ab}']*(self.nupNP*self.mbarupNP)['^{ab}']
+    elif component ==8: 
+        return "Phi22NP", (_sage_const_1 /_sage_const_2 )*self.ricci_R_traceless_allindicesdown['_{ab}']*(self.nupNP*self.nupNP)['^{ab}']
+    elif component ==9: 
+        return "LambdaNP", (_sage_const_1 /_sage_const_24 )*self.ricci_Ricciscalar
+
+def compute_npeq_component(args):
+    self, component = args
+    if component ==0:
+        return "NPeq1", -self.DlNP(self.rhoNP)+self.deltambarNP(self.kappaNP)+(self.rhoNP**_sage_const_2 +self.sigmaNP*self.sigmabarNP)+(self.epsilonNP+self.epsilonbarNP)*self.rhoNP-self.kappabarNP*self.tauNP-self.kappaNP*(_sage_const_3 *self.alphaNP+self.betabarNP-self.piNP)+self.Phi00NP
+    elif component == 1: 
+        return "NPeq2", -self.DlNP(self.sigmaNP)+self.deltamNP(self.kappaNP)+self.sigmaNP*(_sage_const_3 *self.epsilonNP-self.epsilonbarNP+self.rhoNP+self.rhobarNP)+self.kappaNP*(self.pibarNP-self.tauNP-_sage_const_3 *self.betaNP-self.alphabarNP)+self.Psi0NP
+    elif component == 2: 
+        return "NPeq3", -self.DlNP(self.tauNP)+self.DeltanNP(self.kappaNP)+(self.tauNP+self.pibarNP)*self.rhoNP+(self.taubarNP+self.piNP)*self.sigmaNP+(self.epsilonNP-self.epsilonbarNP)*self.tauNP-(_sage_const_3 *self.gammaNP+self.gammabarNP)*self.kappaNP+self.Psi1NP+self.Phi01NP
+    elif component == 3: 
+        return "NPeq4", -self.DlNP(self.alphaNP)+self.deltambarNP(self.epsilonNP)+(self.rhoNP+self.epsilonbarNP-_sage_const_2 *self.epsilonNP)*self.alphaNP+self.betaNP*self.sigmabarNP-self.betabarNP*self.epsilonNP-self.kappaNP*self.lambdaNP-self.kappabarNP*self.gammaNP+(self.epsilonNP+self.rhoNP)*self.piNP+self.Phi10NP
+    elif component == 4: 
+        return "NPeq5", -self.DlNP(self.betaNP) + self.deltamNP(self.epsilonNP) +(self.alphaNP + self.piNP)*self.sigmaNP + (self.rhobarNP - self.epsilonbarNP)*self.betaNP - (self.muNP + self.gammaNP)*self.kappaNP - (self.alphabarNP - self.pibarNP)*self.epsilonNP + self.Psi1NP
+    elif component == 5: 
+        return "NPeq6", -self.DlNP(self.gammaNP) + self.DeltanNP(self.epsilonNP) + (self.tauNP + self.pibarNP)*self.alphaNP + (self.taubarNP+self.piNP)*self.betaNP - (self.epsilonNP + self.epsilonbarNP)*self.gammaNP - (self.gammaNP + self.gammabarNP)*self.epsilonNP + self.tauNP*self.piNP - self.nuNP*self.kappaNP + self.Psi2NP + self.Phi11NP - self.LambdaNP
+    elif component == 6: 
+        return "NPeq7", -self.DlNP(self.lambdaNP) + self.deltambarNP(self.piNP) + (self.rhoNP*self.lambdaNP + self.sigmabarNP*self.muNP) + self.piNP**_sage_const_2  + (self.alphaNP - self.betabarNP)*self.piNP - self.nuNP*self.kappabarNP - (_sage_const_3 *self.epsilonNP - self.epsilonbarNP)*self.lambdaNP + self.Phi20NP
+    elif component == 7: 
+        return "NPeq8", -self.DlNP(self.muNP) + self.deltamNP(self.piNP) + (self.rhobarNP*self.muNP + self.sigmaNP*self.lambdaNP) +self.piNP*self.pibarNP - (self.epsilonNP + self.epsilonbarNP)*self.muNP - (self.alphabarNP - self.betaNP)*self.piNP - self.nuNP*self.kappaNP + self.Psi2NP + _sage_const_2 *self.LambdaNP
+    elif component == 8: 
+        return "NPeq9", -self.DlNP(self.nuNP) + self.DeltanNP(self.piNP) +(self.piNP + self.taubarNP)*self.muNP + (self.pibarNP + self.tauNP)*self.lambdaNP + (self.gammaNP - self.gammabarNP)*self.piNP - (_sage_const_3 *self.epsilonNP + self.epsilonbarNP)*self.nuNP + self.Psi3NP + self.Phi21NP
+    elif component == 9: 
+        return "NPeq10", -self.DeltanNP(self.lambdaNP) + self.deltambarNP(self.nuNP) - (self.muNP + self.mubarNP)*self.lambdaNP - (_sage_const_3 *self.gammaNP - self.gammabarNP)*self.lambdaNP + (_sage_const_3 *self.alphaNP + self.betabarNP + self.piNP - self.taubarNP)*self.nuNP - self.Psi4NP
+    elif component == 10: 
+        return "NPeq11", -self.deltamNP(self.rhoNP) + self.deltambarNP(self.sigmaNP) + (self.alphabarNP + self.betaNP)*self.rhoNP - (_sage_const_3 *self.alphaNP - self.betabarNP)*self.sigmaNP + (self.rhoNP - self.rhobarNP)*self.tauNP + (self.muNP - self.mubarNP)*self.kappaNP - self.Psi1NP + self.Phi01NP
+    elif component == 11: 
+        return "NPeq12", -self.deltamNP(self.alphaNP) + self.deltambarNP(self.betaNP) + (self.muNP*self.rhoNP - self.lambdaNP*self.sigmaNP) + self.alphaNP*self.alphabarNP + self.betaNP*self.betabarNP - _sage_const_2 *self.alphaNP*self.betaNP + (self.rhoNP-self.rhobarNP)*self.gammaNP + (self.muNP-self.mubarNP)*self.epsilonNP - self.Psi2NP + self.Phi11NP + self.LambdaNP
+    elif component == 12: 
+        return "NPeq13", -self.deltamNP(self.lambdaNP) + self.deltambarNP(self.muNP) + (self.rhoNP - self.rhobarNP)*self.nuNP + (self.muNP - self.mubarNP)*self.piNP + (self.alphaNP + self.betabarNP)*self.muNP + (self.alphabarNP - _sage_const_3 *self.betaNP)*self.lambdaNP - self.Psi3NP + self.Phi21NP
+    elif component == 13: 
+        return "NPeq14", -self.deltamNP(self.nuNP) + self.DeltanNP(self.muNP) +(self.muNP**_sage_const_2  + self.lambdaNP*self.lambdabarNP) + (self.gammaNP + self.gammabarNP)*self.muNP - self.nubarNP*self.piNP + (self.tauNP - _sage_const_3 *self.betaNP - self.alphabarNP)*self.nuNP + self.Phi22NP
+    elif component == 14: 
+        return "NPeq15", -self.deltamNP(self.gammaNP) + self.DeltanNP(self.betaNP) + (self.tauNP - self.alphabarNP - self.betaNP)*self.gammaNP + self.muNP*self.tauNP - self.sigmaNP* self.nuNP - self.epsilonNP*self.nubarNP - (self.gammaNP - self.gammabarNP - self.muNP)*self.betaNP + self.alphaNP*self.lambdabarNP + self.Phi12NP
+    elif component == 15: 
+        return "NPeq16", -self.deltamNP(self.tauNP) + self.DeltanNP(self.sigmaNP) + (self.muNP*self.sigmaNP + self.lambdabarNP*self.rhoNP) + (self.tauNP + self.betaNP - self.alphabarNP)*self.tauNP - (_sage_const_3 *self.gammaNP - self.gammabarNP)*self.sigmaNP - self.kappaNP*self.nubarNP + self.Phi02NP
+    elif component == 16: 
+        return "NPeq17", -self.DeltanNP(self.rhoNP) + self.deltambarNP(self.tauNP) - (self.rhoNP*self.mubarNP + self.sigmaNP*self.lambdaNP) + (self.betabarNP - self.alphaNP - self.taubarNP)*self.tauNP + (self.gammaNP + self.gammabarNP)*self.rhoNP + self.nuNP*self.kappaNP - self.Psi2NP - _sage_const_2 *self.LambdaNP
+    elif component == 17: 
+        return "NPeq18", -self.DeltanNP(self.alphaNP) + self.deltambarNP(self.gammaNP) + (self.rhoNP + self.epsilonNP)*self.nuNP - (self.tauNP + self.betaNP)*self.lambdaNP + (self.gammabarNP- self.mubarNP)*self.alphaNP + (self.betabarNP - self.taubarNP)*self.gammaNP - self.Psi3NP
+
+def compute_bianchi_component(args):
+    self, component = args
+    if component ==0:	
+        return "BI1", -(self.deltambarNP(self.Psi0NP)-self.DlNP(self.Psi1NP)+self.DlNP(self.Phi01NP)-self.deltamNP(self.Phi00NP))+(_sage_const_4 *self.alphaNP-self.piNP)*self.Psi0NP-_sage_const_2 *(_sage_const_2 *self.rhoNP+self.epsilonNP)*self.Psi1NP+_sage_const_3 *self.kappaNP*self.Psi2NP+(self.pibarNP-_sage_const_2 *self.alphabarNP-_sage_const_2 *self.betaNP)*self.Phi00NP+_sage_const_2 *(self.epsilonNP+self.rhobarNP)*self.Phi01NP+_sage_const_2 *self.sigmaNP*self.Phi10NP-_sage_const_2 *self.kappaNP*self.Phi11NP-self.kappabarNP*self.Phi02NP
+    elif component == 1:
+        return "BI2", -self.DeltanNP(self.Psi0NP) + self.deltamNP(self.Psi1NP) - self.DlNP(self.Phi02NP) + self.deltamNP(self.Phi01NP) + (_sage_const_4 *self.gammaNP-self.muNP)*self.Psi0NP - _sage_const_2 *(_sage_const_2 *self.tauNP + self.betaNP)*self.Psi1NP + _sage_const_3 *self.sigmaNP*self.Psi2NP + (_sage_const_2 *self.epsilonNP - _sage_const_2 *self.epsilonbarNP + self.rhobarNP)*self.Phi02NP + _sage_const_2 *(self.pibarNP - self.betaNP)*self.Phi01NP + _sage_const_2 *self.sigmaNP*self.Phi11NP - _sage_const_2 *self.kappaNP*self.Phi12NP - self.lambdabarNP*self.Phi00NP
+    elif component == 2:
+        return "BI3", -self.deltambarNP(self.Psi3NP) + self.DlNP(self.Psi4NP) - self.deltambarNP(self.Phi21NP) + self.DeltanNP(self.Phi20NP) + (_sage_const_4 *self.epsilonNP - self.rhoNP)*self.Psi4NP - _sage_const_2 *(_sage_const_2 *self.piNP + self.alphaNP)*self.Psi3NP + _sage_const_3 *self.lambdaNP*self.Psi2NP + (_sage_const_2 *self.gammaNP - _sage_const_2 *self.gammabarNP + self.mubarNP)*self.Phi20NP + _sage_const_2 *(self.taubarNP - self.alphaNP)*self.Phi21NP + _sage_const_2 *self.lambdaNP*self.Phi11NP - _sage_const_2 *self.nuNP*self.Phi10NP - self.sigmabarNP*self.Phi22NP
+    elif component == 3:
+        return "BI4", -self.DeltanNP(self.Psi3NP) + self.deltamNP(self.Psi4NP) - self.deltambarNP(self.Phi22NP) + self.DeltanNP(self.Phi21NP) + (_sage_const_4 *self.betaNP - self.tauNP)*self.Psi4NP - _sage_const_2 *(_sage_const_2 *self.muNP + self.gammaNP)*self.Psi3NP + _sage_const_3 *self.nuNP*self.Psi2NP + (self.taubarNP - _sage_const_2 *self.betabarNP - _sage_const_2 *self.alphaNP)*self.Phi22NP + _sage_const_2 *(self.gammaNP+self.mubarNP)*self.Phi21NP + _sage_const_2 *self.lambdaNP*self.Phi12NP - _sage_const_2 *self.nuNP*self.Phi11NP - self.nubarNP*self.Phi20NP
+    elif component == 4:
+        return "BI5", -self.DlNP(self.Psi2NP) + self.deltambarNP(self.Psi1NP) - self.DeltanNP(self.Phi00NP) + self.deltambarNP(self.Phi01NP) - _sage_const_2 *self.DlNP(self.LambdaNP) - self.lambdaNP*self.Psi0NP + _sage_const_2 *(self.piNP-self.alphaNP)*self.Psi1NP + _sage_const_3 *self.rhoNP*self.Psi2NP - _sage_const_2 *self.kappaNP*self.Psi3NP + (_sage_const_2 *self.gammaNP + _sage_const_2 *self.gammabarNP - self.mubarNP)*self.Phi00NP - _sage_const_2 *(self.taubarNP + self.alphaNP)*self.Phi01NP - _sage_const_2 *self.tauNP*self.Phi10NP + _sage_const_2 *self.rhoNP*self.Phi11NP + self.sigmabarNP*self.Phi02NP
+    elif component == 5:
+        return "BI6", -self.DeltanNP(self.Psi2NP) + self.deltamNP(self.Psi3NP) - self.DlNP(self.Phi22NP) + self.deltamNP(self.Phi21NP) - _sage_const_2 * self.DeltanNP(self.LambdaNP) + self.sigmaNP*self.Psi4NP + _sage_const_2 *(self.betaNP-self.tauNP)*self.Psi3NP - _sage_const_3 *self.muNP*self.Psi2NP + _sage_const_2 *self.nuNP*self.Psi1NP + (self.rhobarNP - _sage_const_2 *self.epsilonNP - _sage_const_2 *self.epsilonbarNP)*self.Phi22NP + _sage_const_2 *(self.pibarNP + self.betaNP)*self.Phi21NP + _sage_const_2 *self.piNP*self.Phi12NP - _sage_const_2 *self.muNP*self.Phi11NP - self.lambdabarNP*self.Phi20NP
+    elif component == 6:
+        return "BI7", -self.DlNP(self.Psi3NP) + self.deltambarNP(self.Psi2NP) + self.DlNP(self.Phi21NP) -self.deltamNP(self.Phi20NP) + _sage_const_2 *self.deltambarNP(self.LambdaNP) - self.kappaNP*self.Psi4NP + _sage_const_2 *(self.rhoNP-self.epsilonNP)*self.Psi3NP + _sage_const_3 *self.piNP*self.Psi2NP - _sage_const_2 *self.lambdaNP*self.Psi1NP + (_sage_const_2 *self.alphabarNP-_sage_const_2 *self.betaNP - self.pibarNP)*self.Phi20NP - _sage_const_2 *(self.rhobarNP-self.epsilonNP)*self.Phi21NP - _sage_const_2 *self.piNP*self.Phi11NP + _sage_const_2 *self.muNP*self.Phi10NP + self.kappabarNP*self.Phi22NP
+    elif component == 7:
+        return "BI8", -self.DeltanNP(self.Psi1NP) + self.deltamNP(self.Psi2NP) + self.DeltanNP(self.Phi01NP) - self.deltambarNP(self.Phi02NP) + _sage_const_2 *self.deltamNP(self.LambdaNP) + self.nuNP*self.Psi0NP + _sage_const_2 *(self.gammaNP-self.muNP)*self.Psi1NP - _sage_const_3 *self.tauNP*self.Psi2NP + _sage_const_2 *self.sigmaNP*self.Psi3NP + (self.taubarNP - _sage_const_2 *self.betabarNP + _sage_const_2 *self.alphaNP)*self.Phi02NP + _sage_const_2 *(self.mubarNP - self.gammaNP)*self.Phi01NP + _sage_const_2 *self.tauNP*self.Phi11NP-_sage_const_2 *self.rhoNP*self.Phi12NP-self.nubarNP*self.Phi00NP
+    elif component == 8:
+        return "BI9", -self.DlNP(self.Phi11NP) + self.deltamNP(self.Phi10NP) + self.deltambarNP(self.Phi01NP) - self.DeltanNP(self.Phi00NP) - _sage_const_3 *self.DlNP(self.LambdaNP) + (_sage_const_2 *self.gammaNP - self.muNP + _sage_const_2 *self.gammabarNP - self.mubarNP)*self.Phi00NP + (self.piNP - _sage_const_2 *self.alphaNP - _sage_const_2 *self.taubarNP)*self.Phi01NP + (self.pibarNP - _sage_const_2 *self.alphabarNP - _sage_const_2 *self.tauNP)*self.Phi10NP + _sage_const_2 *(self.rhoNP+self.rhobarNP)*self.Phi11NP + self.sigmabarNP*self.Phi02NP + self.sigmaNP*self.Phi20NP - self.kappabarNP*self.Phi12NP - self.kappaNP*self.Phi21NP
+    elif component == 9:
+        return "BI10", -self.DlNP(self.Phi12NP) + self.deltamNP(self.Phi11NP) + self.deltambarNP(self.Phi02NP) - self.DeltanNP(self.Phi01NP) - _sage_const_3 *self.deltamNP(self.LambdaNP) + (-_sage_const_2 *self.alphaNP + _sage_const_2 *self.betabarNP + self.piNP - self.taubarNP)*self.Phi02NP + (self.rhobarNP + _sage_const_2 *self.rhoNP - _sage_const_2 *self.epsilonbarNP)*self.Phi12NP + _sage_const_2 *(self.pibarNP - self.tauNP)*self.Phi11NP + (_sage_const_2 *self.gammaNP - _sage_const_2 *self.mubarNP - self.muNP)*self.Phi01NP + self.nubarNP*self.Phi00NP - self.lambdabarNP*self.Phi10NP + self.sigmaNP*self.Phi21NP - self.kappaNP*self.Phi22NP
+    elif component == 10:
+        return "BI11", -self.DlNP(self.Phi22NP) + self.deltamNP(self.Phi21NP) + self.deltambarNP(self.Phi12NP) - self.DeltanNP(self.Phi11NP) - _sage_const_3 *self.DeltanNP(self.LambdaNP) + (self.rhoNP + self.rhobarNP - _sage_const_2 *self.epsilonNP - _sage_const_2 *self.epsilonbarNP)*self.Phi22NP + (_sage_const_2 *self.betabarNP + _sage_const_2 *self.piNP - self.taubarNP)*self.Phi12NP + (_sage_const_2 *self.betaNP + _sage_const_2 *self.pibarNP - self.tauNP)*self.Phi21NP - _sage_const_2 *(self.muNP+self.mubarNP)*self.Phi11NP + self.nuNP*self.Phi01NP + self.nubarNP*self.Phi10NP - self.lambdabarNP*self.Phi20NP - self.lambdaNP*self.Phi02NP
+
+
 
 class NewmanPenrose():
     ####################################################
@@ -427,6 +579,11 @@ class NewmanPenrose():
         self.PetrovinvKNPcalculated=_sage_const_0
         self.PetrovinvLNPcalculated=_sage_const_0
         self.PetrovinvNNPcalculated=_sage_const_0
+        self.petrovtype = None
+        self.weyl_C = None
+        self.weyl_C_allindicesdown= None
+        self.ricci_Ricciscalar= None
+        self.ricci_R_traceless_allindicesdown= None
         #########################
         if vectype=='covariant':
             self.lNPvec=lvecaux
@@ -672,6 +829,9 @@ class NewmanPenrose():
         self.gammabarNP=(_sage_const_1 /_sage_const_2 )*(self.nab(self.nNP)['_ij']*(self.lupNP*self.nupNP)['^ij']-self.nab(self.mNP)['_ij']*(self.mbarupNP*self.nupNP)['^ij'])
         self.betabarNP=-(_sage_const_1 /_sage_const_2 )*(self.nab(self.lNP)['_ij']*(self.nupNP*self.mbarupNP)['^ij']-self.nab(self.mbarNP)['_ij']*(self.mupNP*self.mbarupNP)['^ij'])
         self.alphabarNP=(_sage_const_1 /_sage_const_2 )*(self.nab(self.nNP)['_ij']*(self.lupNP*self.mupNP)['^ij']-self.nab(self.mNP)['_ij']*(self.mbarupNP*self.mupNP)['^ij'])
+
+
+
     #########################
     def show_spincoefficients(self):
         if self.spincoeffscalculated==_sage_const_1 :
@@ -767,6 +927,8 @@ class NewmanPenrose():
         self.Psi2NP=C_allindicesdown['_{pqrs}']*(self.lupNP*self.mupNP*self.mbarupNP*self.nupNP)['^{pqrs}']
         self.Psi3NP=C_allindicesdown['_{pqrs}']*(self.lupNP*self.nupNP*self.mbarupNP*self.nupNP)['^{pqrs}']
         self.Psi4NP=C_allindicesdown['_{pqrs}']*(self.mbarupNP*self.nupNP*self.mbarupNP*self.nupNP)['^{pqrs}']
+
+            
     #########################    
     def show_Weyl(self):
         if self.weylcalculated==_sage_const_1 :
@@ -808,6 +970,8 @@ class NewmanPenrose():
         self.Phi21NP=(_sage_const_1 /_sage_const_2 )*R_traceless_allindicesdown['_{ab}']*(self.nupNP*self.mbarupNP)['^{ab}']
         self.Phi22NP=(_sage_const_1 /_sage_const_2 )*R_traceless_allindicesdown['_{ab}']*(self.nupNP*self.nupNP)['^{ab}']
         self.LambdaNP=(_sage_const_1 /_sage_const_24 )*Ricciscalar # Stephani uses this as R and it is compatible with Lambda
+
+            
     #########################    
     def show_Ricci(self):
         if self.riccicalculated==_sage_const_1 :
@@ -873,6 +1037,8 @@ class NewmanPenrose():
         self.NPeq17=-self.DeltanNP(self.rhoNP) + self.deltambarNP(self.tauNP) - (self.rhoNP*self.mubarNP + self.sigmaNP*self.lambdaNP) + (self.betabarNP - self.alphaNP - self.taubarNP)*self.tauNP + (self.gammaNP + self.gammabarNP)*self.rhoNP + self.nuNP*self.kappaNP - self.Psi2NP - _sage_const_2 *self.LambdaNP
         
         self.NPeq18=-self.DeltanNP(self.alphaNP) + self.deltambarNP(self.gammaNP) + (self.rhoNP + self.epsilonNP)*self.nuNP - (self.tauNP + self.betaNP)*self.lambdaNP + (self.gammabarNP- self.mubarNP)*self.alphaNP + (self.betabarNP - self.taubarNP)*self.gammaNP - self.Psi3NP
+
+    
     #########################
     def show_NPeq(self):
         show("NPeq1=",self.NPeq1.expr())
@@ -927,6 +1093,9 @@ class NewmanPenrose():
         self.BI10=-self.DlNP(self.Phi12NP) + self.deltamNP(self.Phi11NP) + self.deltambarNP(self.Phi02NP) - self.DeltanNP(self.Phi01NP) - _sage_const_3 *self.deltamNP(self.LambdaNP) + (-_sage_const_2 *self.alphaNP + _sage_const_2 *self.betabarNP + self.piNP - self.taubarNP)*self.Phi02NP + (self.rhobarNP + _sage_const_2 *self.rhoNP - _sage_const_2 *self.epsilonbarNP)*self.Phi12NP + _sage_const_2 *(self.pibarNP - self.tauNP)*self.Phi11NP + (_sage_const_2 *self.gammaNP - _sage_const_2 *self.mubarNP - self.muNP)*self.Phi01NP + self.nubarNP*self.Phi00NP - self.lambdabarNP*self.Phi10NP + self.sigmaNP*self.Phi21NP - self.kappaNP*self.Phi22NP
         
         self.BI11=-self.DlNP(self.Phi22NP) + self.deltamNP(self.Phi21NP) + self.deltambarNP(self.Phi12NP) - self.DeltanNP(self.Phi11NP) - _sage_const_3 *self.DeltanNP(self.LambdaNP) + (self.rhoNP + self.rhobarNP - _sage_const_2 *self.epsilonNP - _sage_const_2 *self.epsilonbarNP)*self.Phi22NP + (_sage_const_2 *self.betabarNP + _sage_const_2 *self.piNP - self.taubarNP)*self.Phi12NP + (_sage_const_2 *self.betaNP + _sage_const_2 *self.pibarNP - self.tauNP)*self.Phi21NP - _sage_const_2 *(self.muNP+self.mubarNP)*self.Phi11NP + self.nuNP*self.Phi01NP + self.nubarNP*self.Phi10NP - self.lambdabarNP*self.Phi20NP - self.lambdaNP*self.Phi02NP
+
+
+    
     #########################
     def show_Bianchi(self):
         show("BI1=",self.BI1.expr())
@@ -1038,19 +1207,32 @@ class NewmanPenrose():
             psi3=NewmanPenrose.simplify_fullfull(self.Psi3NP.expr())
             psi4=NewmanPenrose.simplify_fullfull(self.Psi4NP.expr())
             if psi0==_sage_const_0  and psi1==_sage_const_0  and psi2==_sage_const_0  and psi3==_sage_const_0  and psi4==_sage_const_0 :
+                self.petrovtype = "O"
                 print("Petrov Type O")
-            elif psi0==_sage_const_0  and psi1==_sage_const_0  and psi2==_sage_const_0  and psi3==_sage_const_0 :
-                print("Petrov Type N")
-            elif psi0==_sage_const_0  and psi1==_sage_const_0  and psi2==_sage_const_0 :
-                print("Petrov Type III")
-            elif psi0==_sage_const_0  and psi1==_sage_const_0  and psi3==_sage_const_0  and psi4==_sage_const_0 :
-                print("Petrov Type D")
-            elif psi0==_sage_const_0  and psi1==_sage_const_0 :
-                print("Petrov Type II")
-            elif psi0==_sage_const_0 :
-                print("Petrov Type I")
-            print("Attention: This procedure depends on the simplification of the structures. Therefore the Petrov type can be simpler.") 
+                return 
+            E = var('E')
+            P = psi0 - _sage_const_4*psi1*E + _sage_const_6*psi2*E**_sage_const_2 - _sage_const_4*psi3*E**_sage_const_3 + psi4*E**_sage_const_4
+            dP = diff(P, E)
+            G = gcd(P, dP)
 
+            deg = G.degree(E) if G.has(E) else _sage_const_0
+
+            if deg == _sage_const_1:
+                self.petrovtype = "II"
+                print("Petrov Type II")
+            elif deg == _sage_const_2:
+                if P - G**_sage_const_2 == _sage_const_0:
+                    self.petrovtype = "D"
+                    print("Petrov Type D")
+                else:
+                    self.petrovtype = "III"
+                    print("Petrov Type III")
+            elif deg == _sage_const_3:
+                self.petrovtype = "N"
+                print("Petrov Type N")
+            else:
+                self.petrovtype = "I"
+                print("Petrov Type I")
     ####################################################
     # Calculate everything about NP
     #########################
@@ -1060,7 +1242,6 @@ class NewmanPenrose():
         self.calculate_Ricci()
         self.calculate_NPeq()
         self.calculate_Bianchi()
-        self.Petrov_frominvariants()
         self.Petrov_fromWeyl()
     #########################
     def show_allNP(self):
@@ -1077,8 +1258,6 @@ class NewmanPenrose():
         except:
             self.calculate_Bianchi()
             self.show_Bianchi()
-        self.Petrov_frominvariants()
-        self.Petrov_fromWeyl()
     ####################################################
     # Type A Transformations defined in Carmeli and Kaye, Annals of Physics 99, 188 (1976)
     # Null rotation about l_mu
