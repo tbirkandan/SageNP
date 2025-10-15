@@ -1211,28 +1211,60 @@ class NewmanPenrose():
                 print("Petrov Type O")
                 return 
             E = var('E')
+            
             P = psi0 - _sage_const_4*psi1*E + _sage_const_6*psi2*E**_sage_const_2 - _sage_const_4*psi3*E**_sage_const_3 + psi4*E**_sage_const_4
-            dP = diff(P, E)
-            G = gcd(P, dP)
 
-            deg = G.degree(E) if G.has(E) else _sage_const_0
-
-            if deg == _sage_const_1:
-                self.petrovtype = "II"
-                print("Petrov Type II")
-            elif deg == _sage_const_2:
-                if P - G**_sage_const_2 == _sage_const_0:
-                    self.petrovtype = "D"
-                    print("Petrov Type D")
-                else:
+            try:
+                degP = P.degree(E)
+                dP = diff(P, E)
+                G = gcd(P, dP)
+    
+                deg = G.degree(E) if G.has(E) else _sage_const_0
+                
+                if degP == _sage_const_4 or degP == _sage_const_3:
+                    if deg == _sage_const_1:
+                        self.petrovtype = "II"
+                        print("Petrov Type II")
+                        return
+                    elif deg == _sage_const_2:
+                        if gcd(G**_sage_const_2, P) == P:
+                            self.petrovtype = "D"
+                            print("Petrov Type D")
+                            return
+                        else:
+                            self.petrovtype = "III"
+                            print("Petrov Type III")
+                            return
+                    elif deg == _sage_const_3:
+                        self.petrovtype = "N"
+                        print("Petrov Type N")
+                        return
+                    else:
+                        self.petrovtype = "I"
+                        print("Petrov Type I")
+                        return
+                elif degP == _sage_const_2:
+                    if deg == _sage_const_1:
+                        self.petrovtype = "D"
+                        print("Petrov Type D")
+                        return
+                    else:
+                        self.petrovtype = "II"
+                        print("Petrov Type II")
+                        return
+                elif degP == sage_const_1:
                     self.petrovtype = "III"
                     print("Petrov Type III")
-            elif deg == _sage_const_3:
-                self.petrovtype = "N"
-                print("Petrov Type N")
-            else:
-                self.petrovtype = "I"
-                print("Petrov Type I")
+                    return
+                else:
+                    print("Petrov Type could not found")
+            except:
+                try:
+                    self.Petrov_frominvariants()
+                except:
+                    self.petrovtype = " "
+                    print("Error: Unable to calculate the Petrov type.")
+                     
     ####################################################
     # Calculate everything about NP
     #########################
@@ -1243,6 +1275,8 @@ class NewmanPenrose():
         self.calculate_NPeq()
         self.calculate_Bianchi()
         self.Petrov_fromWeyl()
+
+
     #########################
     def show_allNP(self):
         self.show_spincoefficients()
@@ -1258,6 +1292,7 @@ class NewmanPenrose():
         except:
             self.calculate_Bianchi()
             self.show_Bianchi()
+        self.Petrov_fromWeyl()
     ####################################################
     # Type A Transformations defined in Carmeli and Kaye, Annals of Physics 99, 188 (1976)
     # Null rotation about l_mu
