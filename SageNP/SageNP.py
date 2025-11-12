@@ -1160,6 +1160,15 @@ class NewmanPenrose():
             self.calculate_Weyl()
             self.Petrov_frominvariants()
         else:
+            psi0=NewmanPenrose.simplify_fullfull(self.Psi0NP.expr())
+            psi1=NewmanPenrose.simplify_fullfull(self.Psi1NP.expr())
+            psi2=NewmanPenrose.simplify_fullfull(self.Psi2NP.expr())
+            psi3=NewmanPenrose.simplify_fullfull(self.Psi3NP.expr())
+            psi4=NewmanPenrose.simplify_fullfull(self.Psi4NP.expr())
+            if psi0==_sage_const_0  and psi1==_sage_const_0  and psi2==_sage_const_0  and psi3==_sage_const_0  and psi4==_sage_const_0 :
+                self.petrovtype = "O"
+                print("Petrov Type O")
+                return
             if self.PetrovinvINPcalculated==_sage_const_0 :
                 self.calculate_PetrovinvINP()
             if self.PetrovinvJNPcalculated==_sage_const_0 :
@@ -1181,15 +1190,20 @@ class NewmanPenrose():
             if IIJJterm==_sage_const_0 :
                 if II==_sage_const_0  and JJ==_sage_const_0 :
                     if KK==_sage_const_0  and LL==_sage_const_0 :
+                        self.petrovtype = "N"
                         print("Petrov Type N")
                     else:
+                        self.petrovtype = "III"
                         print("Petrov Type III")
                 else:
                     if KK==_sage_const_0  and NN==_sage_const_0 :
+                        self.petrovtype = "D"
                         print("Petrov Type D")
                     else:
+                        self.petrovtype = "II"
                         print("Petrov Type II")
             else:
+                self.petrovtype = "I"
                 print("Petrov Type I")
             print("Attention: This procedure depends on the simplification of the structures. Therefore the Petrov type can be simpler.")
     
@@ -1257,6 +1271,7 @@ class NewmanPenrose():
                     print("Petrov Type III")
                     return
                 else:
+                    self.petrovtype = " "
                     print("Petrov Type could not found")
             except:
                 try:
@@ -1292,7 +1307,11 @@ class NewmanPenrose():
         except:
             self.calculate_Bianchi()
             self.show_Bianchi()
-        self.Petrov_fromWeyl()
+        try:
+            show("Petrov type " + self.petrovtype)
+        except:
+            self.Petrov_fromWeyl()
+            show("Petrov type " + self.petrovtype)
     ####################################################
     # Type A Transformations defined in Carmeli and Kaye, Annals of Physics 99, 188 (1976)
     # Null rotation about l_mu
